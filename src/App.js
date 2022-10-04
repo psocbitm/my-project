@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
-import Bookmark from "./Pages/Bookmarks/Bookmark";
+import Bookmarks from "./Pages/Bookmarks/Bookmarks";
 import Homepage from "./Pages/Homepage/Homepage";
 import NoMatch from "./Pages/NoMatch/NoMatch";
 
@@ -11,7 +11,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Homepage />} />
-          <Route path="bookmarks" element={<Bookmark />} />
+          <Route path="bookmarks" element={<Bookmarks />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
@@ -30,7 +30,7 @@ function Layout() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/bookmarks">About</Link>
+            <Link to="/bookmarks">Bookmarks</Link>
           </li>
         </ul>
       </nav>
