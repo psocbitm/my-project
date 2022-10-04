@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 const initialState = {
-  bookmarks: [],
+  bookmarks: Cookies.get("Bookmarks")
+    ? JSON.parse(Cookies.get("Bookmarks"))
+    : [],
 };
 
 export const BookmarkListSlice = createSlice({
@@ -22,6 +25,6 @@ export const BookmarkListSlice = createSlice({
   },
 });
 
-export const { append, emptyList,remove } = BookmarkListSlice.actions;
+export const { append, emptyList, remove } = BookmarkListSlice.actions;
 
 export default BookmarkListSlice.reducer;

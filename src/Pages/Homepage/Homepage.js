@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  append,
-} from "../../Features/BookmarkList/BookmarkListSlice";
+import { append } from "../../Features/BookmarkList/BookmarkListSlice";
 import axios from "axios";
 
 function Homepage() {
@@ -23,6 +21,7 @@ function Homepage() {
       console.error(error);
     }
   }
+
   useEffect(() => {
     getData();
   }, []);
@@ -43,11 +42,16 @@ function Homepage() {
                 <div
                   className="cursor-pointer"
                   onClick={() => {
-                    alert("Added to bookmarks");
-                    dispatch(append([item]));
+                    count.find((i) => i.id === item.id)
+                      ? alert("Already added")
+                      : dispatch(append(item)) && alert("Added");
                   }}
                 >
-                  add to bookmark
+                  {count.find((i) => i.id === item.id) ? (
+                    <div>Bookmarked</div>
+                  ) : (
+                    <div>Bookmark</div>
+                  )}
                 </div>
               </div>
             );
