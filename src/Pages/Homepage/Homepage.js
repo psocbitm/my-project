@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { append } from "../../Features/BookmarkList/BookmarkListSlice";
 import axios from "axios";
+import MapModal from "../../Components/MapModal/MapModal";
 
 function Homepage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
   async function getData() {
     try {
       const res = await axios({
         method: "get",
-        url: "https://api.airtable.com/v0/appjWdL7YgpxIxCKA/restaurants?maxRecords=3&view=Grid%20view",
+        url: "https://api.airtable.com/v0/appjWdL7YgpxIxCKA/restaurants",
         headers: {
           Authorization: "Bearer keyfXgn8PL6pB3x32",
         },
@@ -39,6 +41,14 @@ function Homepage() {
             return (
               <div key={item.id}>
                 <div>{item.fields.Name}</div>
+                <button
+                  onClick={() => {
+                    setOpenModal(true);
+                  }}
+                >
+                  Click here
+                </button>
+                <MapModal open={openModal} setOpen={setOpenModal} mapUrl={``}/>
                 <div
                   className="cursor-pointer"
                   onClick={() => {
