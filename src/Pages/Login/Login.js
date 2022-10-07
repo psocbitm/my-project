@@ -56,8 +56,9 @@ function Login() {
           <button
             className="hover:text-white/50"
             onClick={() => {
+              Cookies.remove("Bookmarks");
               Cookies.remove("user");
-              <Navigate to="/" replace={true} />;
+              window.location.reload();
             }}
           >
             Logout
