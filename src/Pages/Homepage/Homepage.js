@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { append } from "../../Features/BookmarkList/BookmarkListSlice";
 import axios from "axios";
-import MapModal from "../../Components/MapModal/MapModal";
+import Card from "../../Components/Card/Card";
 
 function Homepage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [openModal, setOpenModal] = useState(false);
   async function getData() {
     try {
       const res = await axios({
@@ -27,45 +26,20 @@ function Homepage() {
   useEffect(() => {
     getData();
   }, []);
-
-  const count = useSelector((state) => state.BookmarkList.bookmarks);
-  const dispatch = useDispatch();
   return (
-    <div>
+    <div className="pb-10">
       {loading ? (
         <div>Loading...</div>
       ) : (
         <div>
-          <h1>Available restaurants</h1>
+          <h1 className="my-10 text-center text-4xl text-white">Available restaurants</h1>
+          <div className="flex justify-center flex-wrap gap-x-5 gap-y-5">
           {data.map((item) => {
             return (
-              <div key={item.id}>
-                <div>{item.fields.Name}</div>
-                <button
-                  onClick={() => {
-                    setOpenModal(true);
-                  }}
-                >
-                  Click here
-                </button>
-                <MapModal open={openModal} setOpen={setOpenModal} mapUrl={``}/>
-                <div
-                  className="cursor-pointer"
-                  onClick={() => {
-                    count.find((i) => i.id === item.id)
-                      ? alert("Already added")
-                      : dispatch(append(item)) && alert("Added");
-                  }}
-                >
-                  {count.find((i) => i.id === item.id) ? (
-                    <div>Bookmarked</div>
-                  ) : (
-                    <div>Bookmark</div>
-                  )}
-                </div>
-              </div>
+              <Card item={item} key={item.id} />
             );
           })}
+            </div>
         </div>
       )}
     </div>
